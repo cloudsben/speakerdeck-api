@@ -3,12 +3,16 @@
 ## 所有分类数据
 
 * uri
+	
+		xml:/index.php/speakerapi/categorys/
+		json:/index.php/speakerapi/categorys/format/json
+	
 * method get
-* json
+* format-type json or xml 
 * return
 		
-		url:
-		name:
+		url: string
+		name: string
 
 ## 分类的列表数据
 
