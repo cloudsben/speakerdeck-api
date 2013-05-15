@@ -18,7 +18,7 @@
 
 * uri
 * method get
-* params category
+* params c string p int
 * json
 * return
 		
@@ -27,12 +27,13 @@
 			data_id:
 			data_url:
 			data_title:
-			data_slide:
+			data_slide_thumb:
+			data_slide_count:
 			data_time:
 			data_author:
 			data_author_url:
 
-## 内容页数据
+## 内容页数据 Todo
 
 * uri
 * method get
@@ -51,7 +52,7 @@
 		data_stat_num:
 		data_download_pdf:
 
-## 搜索数据
+## 搜索数据 Todo
 
 * uri
 * method get
@@ -69,7 +70,7 @@
 			data_author_url:
 
 
-## 作者相关数据
+## 作者相关数据 Todo
 
 * uri
 * method get
@@ -80,8 +81,3 @@
 		author_name:
 		author_url:
 		author_description:
-
-
-
-
-
