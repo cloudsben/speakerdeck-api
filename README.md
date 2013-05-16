@@ -19,7 +19,11 @@
 * uri
 * method get
 * params c string p int
-* json
+
+		c = category
+		p = page
+
+* format-type json or xml
 * return
 		
 		page:
@@ -38,7 +42,7 @@
 * uri
 * method get
 * params detail_url
-* json
+* format-type json or xml
 * return
 		
 		data_id:
@@ -52,13 +56,21 @@
 		data_star_num:
 		data_stat_num:
 		data_download_pdf:
+* demo
+      
+      /index.php/speakerapi/detail/format/json?url=https://speakerdeck.com/geeforr/whats-new-in-ruby-2-dot-0
+      
 
-## 搜索数据 Todo
+## 搜索数据 
 
 * uri
 * method get
-* params keyword
-* json
+* params q string p int
+		
+		q = keyword
+		p = page
+		
+* format-type json or xml
 * return
 
 		page:
@@ -76,7 +88,7 @@
 * uri
 * method get
 * params author_name
-* json
+* format-type json or xml
 * return
 
 		author_name:
