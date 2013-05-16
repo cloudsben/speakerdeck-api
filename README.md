@@ -43,11 +43,12 @@
 		
 		data_id:
 		data_title:
+		data_slides:
 		data_author:
 		data_author_url:
 		data_time:
 		data_category:
-		data_description:
+		data_desc$ription:
 		data_star_num:
 		data_stat_num:
 		data_download_pdf:

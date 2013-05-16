@@ -95,11 +95,68 @@ class Speakerapi extends REST_Controller
 
 	}
 
+	public function detail_get()
+	{
+
+		$url = $this->input->get('url');
+		if ($url == '')
+		{
+			$this->response(array('status'=>-1,'msg'=>'empty url'),200);
+		}
+
+		$detail_html = $this->get_ssl_page($url);
+
+		// var_dump($detail_html);
+		$all_data = array();
+
+		$pattern_data_id = '/<div class="speakerdeck-embed" data-id="(.*?)"/';
+		preg_match($pattern_data_id, $detail_html, $match_data_id);
+		$all_data['data_id'] = $match_data_id[1];
+		
+		$pattern_data_category = '/Published <mark>(.*)<\/mark>\s+in <mark><a href=".*">(.*)<\/a>/';
+		preg_match($pattern_data_category, $detail_html, $match_data_category);
+		$all_data['data_category'] = $match_data_category[2];
+		
+		$pattern_data_author = '/<div id="talk-details">\s+<header>\s+<h1>(.*)<\/h1>\s+<h2>by <a href="(.*)">(.*)<\/a><\/h2>/';
+		preg_match($pattern_data_author, $detail_html, $match_data_author);
+		$all_data['data_title'] = $match_data_author[1];
+		$all_data['data_author_url'] = $this->speakerdeck_homepage.$match_data_author[2];
+		$all_data['data_author'] = $match_data_author[3];
+		
+		$pattern_data_description = '/<div class="description">\s+<p>(.*?)<\/p>/';
+		preg_match($pattern_data_description, $detail_html, $match_data_description);
+		$all_data['data_desription'] = html_entity_decode($match_data_description[1]);
+		
+		$pattern_data_star_num = '/<a href=".*" class="stargazers">(.*)Stars/';
+		preg_match($pattern_data_star_num, $detail_html, $match_data_star_num);
+		$all_data['data_star_num'] = intval($match_data_star_num[1]);
+		
+		$pattern_data_stat_num = '/<li class="views">Stats <span>(.*) Views<\/span><\/li>/';
+		preg_match($pattern_data_stat_num, $detail_html, $match_data_stat_num);
+		$all_data['data_stat_num'] = intval(str_replace(',', '', $match_data_stat_num[1]));
+		
+		$pattern_data_download_pdf = '/<a href="(.*)" class="grey" id="share_pdf">Download PDF<\/a>/';
+		preg_match($pattern_data_download_pdf, $detail_html, $match_data_download_pdf);
+		$all_data['data_download_pdf'] = $match_data_download_pdf[1];
+		
+		$slides_html_url = 'https://speakerdeck.com/player/';
+		$slides_html = $this->get_ssl_page($slides_html_url.$all_data['data_id']);
+		
+		$json_pattern = '/var\ talk\ =\ (.*)\};/';
+		preg_match($json_pattern, $slides_html, $json_maches);
+		$json_maches = $json_maches[1] . '}';
+		$slides_json_data = json_decode($json_maches);
+		
+		$all_data['data_time'] = $slides_json_data->modified_at;
+		$all_data['data_slides'] = $slides_json_data->slides;
+		
+		$this->response($all_data, 200);
+	 }
+
 
 
 	public function get_ssl_page($url = '')
 	{
-		// $url = 'https://speakerd.s3.amazonaws.com/presentations/f080c130744c01306b5122000a1c8083/preview_slide_0.jpg';
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
