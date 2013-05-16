@@ -4,8 +4,8 @@
 
 * uri
 	
-		xml:/index.php/speakerapi/categorys/
-		json:/index.php/speakerapi/categorys/format/json
+		xml:/index.php/speakerapi/category/
+		json:/index.php/speakerapi/category/format/json
 	
 * method get
 * format-type json or xml 
@@ -14,9 +14,13 @@
 		url: string
 		name: string
 
+
 ## 分类的列表数据
 
-* uri
+* uri 
+		
+		/index.php/speakerapi/one_category/
+
 * method get
 * params c string p int
 
@@ -36,10 +40,17 @@
 			data_time:
 			data_author:
 			data_author_url:
+			
+* demo
+		
+		/index.php/speakerapi/one_category/c/books/p/1/format/json
 
-## 内容页数据 Todo
+## 内容页数据
 
 * uri
+		
+		/index.php/speakerapi/detail/
+
 * method get
 * params detail_url
 * format-type json or xml
@@ -64,6 +75,9 @@
 ## 搜索数据 
 
 * uri
+		
+		/index.php/speakerapi/search
+
 * method get
 * params q string p int
 		
@@ -82,10 +96,17 @@
 			data_author:
 			data_author_url:
 
+* demo
+		
+		/index.php/speakerapi/search/q/book/p/1/format/json
 
-## 作者相关数据 Todo
+
+## 作者相关数据
 
 * uri
+
+		/index.php/speakerapi/author
+
 * method get
 * params author_name
 * format-type json or xml
@@ -94,3 +115,16 @@
 		author_name:
 		author_url:
 		author_description:
+		author_slides:
+			data_id:
+			data_url:
+			data_title:
+			data_slide_thumb:
+			data_slide_count:
+			data_time:
+			data_author:
+			data_author_url:
+			
+* demo
+		
+		/index.php/speakerapi/author/format/json?url=https://speakerdeck.com/kevinpledge

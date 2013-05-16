@@ -137,43 +137,63 @@ class Speakerapi extends REST_Controller
 		
 	 }
 	 
+	 public function author_get()
+	 {
+		$author_url = $this->input->get('url');
+		
+		$author_html = $this->get_ssl_page($author_url);
+		
+		$pattern = '/<\/h1>\s+<a href="(.*)" class="bio_mugshot">.*<\/a>\s+<h2>(.*)<\/h2>\s+<div class="bio">(.*)<\/p><\/div>/ms';
+		preg_match($pattern, $author_html, $matches);
+		$patterns = array('/<p>/','/<\/p>/');
+		$replacements = array('', "\n");
+		$description = preg_replace($patterns, $replacements, $matches[3]);
+		$all_data['author_name'] = $matches[2];
+		$all_data['author_url'] = $this->speakerdeck_homepage.$matches[1];
+		$all_data['author_description'] = $description;
+		
+		$all_data['author_slides'] = $this->get_list_slides($author_html);
+
+		$this->response($all_data, 200);
+
+	 }
 	 
 	 public function get_list_slides($html)
 	 {
 		$data = array(); 
- 		$pattern = '/<div\s+class="talk\s+public"\s+data-id="([a-z0-9]+)"\s+data-slide-count="(\d+)">(.*?)<\/div>\s+<\/div>/ms';
- 		preg_match_all($pattern, $html, $talks, PREG_SET_ORDER);
+		$pattern = '/<div\s+class="talk\s+public"\s+data-id="([a-z0-9]+)"\s+data-slide-count="(\d+)">(.*?)<\/div>\s+<\/div>/ms';
+		preg_match_all($pattern, $html, $talks, PREG_SET_ORDER);
 
- 		if(!empty($talks[0]))
- 		{
- 			foreach ($talks as $key => $value)
- 			{
- 				$data[$key]['data_id'] = $value[1];
- 				$data[$key]['data_slide_count'] = intval($value[2]);
+		if(!empty($talks[0]))
+		{
+			foreach ($talks as $key => $value)
+			{
+				$data[$key]['data_id'] = $value[1];
+				$data[$key]['data_slide_count'] = intval($value[2]);
 
- 				$pattern_data_url = '/<a class="slide_preview scrub" href="(.*?)">/ms';
- 				preg_match($pattern_data_url, $value[3],$match_data_url);
- 				$data[$key]['data_url'] = $this->speakerdeck_homepage.$match_data_url[1];
+				$pattern_data_url = '/<a class="slide_preview scrub" href="(.*?)">/ms';
+				preg_match($pattern_data_url, $value[3],$match_data_url);
+				$data[$key]['data_url'] = $this->speakerdeck_homepage.$match_data_url[1];
 
- 				$pattern_data_slide_thumb = '/<img alt="Thumb_slide_0" src="(.*?)" \/>/ms';
- 				preg_match($pattern_data_slide_thumb, $value[3],$match_data_slide_thumb);
- 				$data[$key]['data_slide_thumb'] = $match_data_slide_thumb[1];
+				$pattern_data_slide_thumb = '/<img alt="Thumb_slide_0" src="(.*?)" \/>/ms';
+				preg_match($pattern_data_slide_thumb, $value[3],$match_data_slide_thumb);
+				$data[$key]['data_slide_thumb'] = $match_data_slide_thumb[1];
 
- 				$pattern_data_title = '/<h3 class="title">\s+<a href=".*?">(.*?)<\/a>/ms';
- 				preg_match($pattern_data_title, $value[3],$match_data_title);
- 				$data[$key]['data_title'] = $match_data_title[1];
+				$pattern_data_title = '/<h3 class="title">\s+<a href=".*?">(.*?)<\/a>/ms';
+				preg_match($pattern_data_title, $value[3],$match_data_title);
+				$data[$key]['data_title'] = $match_data_title[1];
 
- 				$pattern_data_time = '/<p class="date">\s+(.*?)\sby/ms';
- 				preg_match($pattern_data_time, $value[3],$match_data_time);
- 				$data[$key]['data_time'] = strtotime($match_data_time[1]);
- 				// var_dump($match_data_url);
+				$pattern_data_time = '/<p class="date">\s+(.*?)\sby/ms';
+				preg_match($pattern_data_time, $value[3],$match_data_time);
+				$data[$key]['data_time'] = strtotime($match_data_time[1]);
+				// var_dump($match_data_url);
 
- 				$pattern_data_author = '/by\s+<a href="(.*?)">(.*?)<\/a><\/p>/ms';
- 				preg_match($pattern_data_author, $value[3],$match_data_author);
- 				$data[$key]['data_author_url'] = $this->speakerdeck_homepage.$match_data_author[1];
- 				$data[$key]['data_author'] = $match_data_author[2];
- 			}
- 		}
+				$pattern_data_author = '/by\s+<a href="(.*?)">(.*?)<\/a><\/p>/ms';
+				preg_match($pattern_data_author, $value[3],$match_data_author);
+				$data[$key]['data_author_url'] = $this->speakerdeck_homepage.$match_data_author[1];
+				$data[$key]['data_author'] = $match_data_author[2];
+			}
+		}
 		return $data;
 	 }
 
