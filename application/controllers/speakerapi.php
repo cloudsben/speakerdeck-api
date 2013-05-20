@@ -127,8 +127,8 @@ class Speakerapi extends REST_Controller
 		{
 			$page = 1;
 		}
-
-		$search_html = $this->get_ssl_page($this->speakerdeck_homepage.'/search?q='.$keyword);
+		
+		$search_html = $this->get_ssl_page($this->speakerdeck_homepage.'/search?q='.$keyword.'&_pjax=true&page='.$page);
 		
 		$all_data = array('page'=>$page);
 

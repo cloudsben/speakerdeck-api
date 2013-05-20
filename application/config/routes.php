@@ -40,6 +40,16 @@
 
 $route['default_controller'] = "welcome";
 
+$route['speakerapi/category/(:any)/(:num)/format/(:any)'] = "speakerapi/category/category/$1/page/$2/format/$3";
+$route['speakerapi/category/(:any)/(:num)'] = "speakerapi/category/category/$1/page/$2";
+$route['speakerapi/category/(:any)'] = "speakerapi/category/category/$1";
+
+$route['speakerapi/search/(:any)/(:num)/format/(:any)'] = "speakerapi/search/keyword/$1/page/$2/format/$3";
+$route['speakerapi/search/(:any)/(:num)'] = "speakerapi/search/keyword/$1/page/$2";
+$route['speakerapi/search/(:any)'] = "speakerapi/search/keyword/$1";
+
+$route['speakerapi/author/(:any)'] = "speakerapi/author/username/$1";
+
 $route['404_override'] = '';
 
 

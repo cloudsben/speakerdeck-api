@@ -18,12 +18,12 @@
 
 * uri 
 		
-		/speakerapi/category/
+		/speakerapi/category
 
 * method get
 * params
 
-		category 
+		category
 		page
 
 * format-type json or xml
@@ -42,7 +42,7 @@
 			
 * demo
 		
-		speakerdeck-api.com/speakerapi/category/category/books/page/2
+		/speakerapi/category/books/3/format/json
 
 ## 内容页数据
 
@@ -100,7 +100,7 @@
 
 * demo
 		
-		speakerdeck-api.com/speakerapi/search/keyword/books/page/2
+		/speakerapi/search/books/2/format/json
 
 
 ## 作者相关数据
@@ -129,4 +129,4 @@
 			
 * demo
 		
-		/speakerapi/author/username/
+		/speakerapi/author/cloudsben
