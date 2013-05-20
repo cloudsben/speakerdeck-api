@@ -4,8 +4,7 @@
 
 * uri
 	
-		xml:/index.php/speakerapi/category/
-		json:/index.php/speakerapi/category/format/json
+		/speakerapi/all_category/
 	
 * method get
 * format-type json or xml 
@@ -19,13 +18,13 @@
 
 * uri 
 		
-		/index.php/speakerapi/one_category/
+		/speakerapi/category/
 
 * method get
-* params c string p int
+* params
 
-		c = category
-		p = page
+		category 
+		page
 
 * format-type json or xml
 * return
@@ -43,16 +42,19 @@
 			
 * demo
 		
-		/index.php/speakerapi/one_category/c/books/p/1/format/json
+		speakerdeck-api.com/speakerapi/category/category/books/page/2
 
 ## 内容页数据
 
 * uri
 		
-		/index.php/speakerapi/detail/
+		/speakerapi/detail/
 
 * method get
-* params detail_url
+* params
+ 
+		url
+
 * format-type json or xml
 * return
 		
@@ -69,20 +71,20 @@
 		data_download_pdf:
 * demo
       
-      /index.php/speakerapi/detail/format/json?url=https://speakerdeck.com/geeforr/whats-new-in-ruby-2-dot-0
+      /speakerapi/detail/format/json?url=https://speakerdeck.com/geeforr/whats-new-in-ruby-2-dot-0
       
 
 ## 搜索数据 
 
 * uri
 		
-		/index.php/speakerapi/search
+		/speakerapi/search
 
 * method get
-* params q string p int
+* params
 		
-		q = keyword
-		p = page
+		keyword
+		page
 		
 * format-type json or xml
 * return
@@ -98,17 +100,17 @@
 
 * demo
 		
-		/index.php/speakerapi/search/q/book/p/1/format/json
+		speakerdeck-api.com/speakerapi/search/keyword/books/page/2
 
 
 ## 作者相关数据
 
 * uri
 
-		/index.php/speakerapi/author
+		/speakerapi/author
 
 * method get
-* params author_name
+* params username
 * format-type json or xml
 * return
 
@@ -127,4 +129,4 @@
 			
 * demo
 		
-		/index.php/speakerapi/author/format/json?url=https://speakerdeck.com/kevinpledge
+		/speakerapi/author/username/

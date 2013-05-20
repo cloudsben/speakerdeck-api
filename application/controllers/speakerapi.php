@@ -9,7 +9,7 @@ class Speakerapi extends REST_Controller
 
 	protected $speakerdeck_homepage = "https://speakerdeck.com";
 
-	public function category_get()
+	public function all_category_get()
 	{
 
 		$homepage_html = $this->get_ssl_page($this->speakerdeck_homepage);
@@ -33,16 +33,16 @@ class Speakerapi extends REST_Controller
 	}
 
 
-	public function one_category_get()
+	public function category_get()
 	{
 		$category_url = $this->speakerdeck_homepage."/p/all";
-		$category = $this->get('c');
+		$category = $this->get('category');
 		if($category != '')
 		{
 			$category_url = $this->speakerdeck_homepage."/c/".$category;
 		}
 
-		$page = intval($this->get('p'));
+		$page = intval($this->get('page'));
 
 		if($page == 0)
 		{
@@ -120,9 +120,9 @@ class Speakerapi extends REST_Controller
 
 	public function search_get()
 	{
-		$keyword = $this->get('q');
+		$keyword = $this->get('keyword');
 		
-		$page = intval($this->get('p'));
+		$page = intval($this->get('page'));
 		if ($page == 0)
 		{
 			$page = 1;
@@ -139,13 +139,17 @@ class Speakerapi extends REST_Controller
 	 
 	 public function author_get()
 	 {
-		$author_url = $this->input->get('url');
-		
-		$author_html = $this->get_ssl_page($author_url);
+		$username = $this->get('username');
+		if($username == '')
+		{
+			$this->response(array('status'=>-1,'msg'=>'empty username'),200);
+		}
+		$author_html = $this->get_ssl_page($this->speakerdeck_homepage.'/'.$username);
 		
 		$pattern = '/<\/h1>\s+<a href="(.*)" class="bio_mugshot">.*<\/a>\s+<h2>(.*)<\/h2>\s+<div class="bio">(.*)<\/p><\/div>/ms';
 		preg_match($pattern, $author_html, $matches);
 		$patterns = array('/<p>/','/<\/p>/');
+
 		$replacements = array('', "\n");
 		$description = preg_replace($patterns, $replacements, $matches[3]);
 		$all_data['author_name'] = $matches[2];
@@ -208,4 +212,5 @@ class Speakerapi extends REST_Controller
 		curl_close($ch);
 		return $result;
 	}
+
 }
