@@ -11,9 +11,7 @@ class Speakerapi extends REST_Controller
 
 	public function all_category_get()
 	{
-
 		$homepage_html = $this->get_ssl_page($this->speakerdeck_homepage);
-
 		$pattern = '/<a\ href="(.*)"\ class="navitem">(.*)<\/a>/';
 		preg_match_all($pattern, $homepage_html, $matches);
 		$all_path = $matches[1];
@@ -37,7 +35,11 @@ class Speakerapi extends REST_Controller
 	{
 		$category_url = $this->speakerdeck_homepage."/p/all";
 		$category = $this->get('category');
-		if($category != '')
+		if($category == 'all' || $category == 'featured')
+		{
+			$category_url = $this->speakerdeck_homepage."/p/".$category;
+		}
+		else
 		{
 			$category_url = $this->speakerdeck_homepage."/c/".$category;
 		}
@@ -50,7 +52,7 @@ class Speakerapi extends REST_Controller
 		}
 
 		$category_url = $category_url."?page=".$page;
-
+		
 		$category_html = $this->get_ssl_page($category_url);
 		$all_data = array('page'=>$page);
 
