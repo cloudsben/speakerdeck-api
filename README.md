@@ -18,7 +18,7 @@
 
 * uri 
 		
-		/speakerapi/category
+		/speakerapi/slides
 
 * method get
 * params
@@ -42,7 +42,7 @@
 			
 * demo
 		
-		/speakerapi/category/books/3/format/json
+		/speakerapi/slides/books/3/format/json
 
 ## 内容页数据
 

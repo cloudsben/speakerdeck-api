@@ -40,9 +40,9 @@
 
 $route['default_controller'] = "welcome";
 
-$route['speakerapi/category/(:any)/(:num)/format/(:any)'] = "speakerapi/category/category/$1/page/$2/format/$3";
-$route['speakerapi/category/(:any)/(:num)'] = "speakerapi/category/category/$1/page/$2";
-$route['speakerapi/category/(:any)'] = "speakerapi/category/category/$1";
+$route['speakerapi/slides/(:any)/(:num)/format/(:any)'] = "speakerapi/slides/category/$1/page/$2/format/$3";
+$route['speakerapi/slides/(:any)/(:num)'] = "speakerapi/slides/category/$1/page/$2";
+$route['speakerapi/slides/(:any)'] = "speakerapi/slides/category/$1";
 
 $route['speakerapi/search/(:any)/(:num)/format/(:any)'] = "speakerapi/search/keyword/$1/page/$2/format/$3";
 $route['speakerapi/search/(:any)/(:num)'] = "speakerapi/search/keyword/$1/page/$2";

@@ -33,7 +33,7 @@ class Speakerapi extends REST_Controller
 	}
 
 
-	public function category_get()
+	public function slides_get()
 	{
 		$category_url = $this->speakerdeck_homepage."/p/all";
 		$category = $this->get('category');
