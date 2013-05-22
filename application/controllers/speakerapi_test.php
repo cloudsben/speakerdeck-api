@@ -4,7 +4,7 @@ require APPPATH.'/libraries/REST_Controller.php';
 
 class Speakerapi_test extends CI_Controller
 {
-	protected $server = 'http://local.speakerdeck-api.com/';
+	protected $server;
 
 	function __construct()
 	{
@@ -13,9 +13,10 @@ class Speakerapi_test extends CI_Controller
 		$this->load->library('rest');
 		$this->load->helper('url');
 		$this->unit->active(TRUE);
+		$this->server = base_url();
 	}
 	
-	public function index()
+	function index()
 	{
 		$this->test_all_category_get();
 		$this->test_slides_get();

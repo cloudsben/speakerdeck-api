@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= isset($_SERVER['HTTP_HOST']) ? "http://{$_SERVER['HTTP_HOST']}/" : "CLI";
 
 /*
 |--------------------------------------------------------------------------
